@@ -1,0 +1,21 @@
+{
+  "name": "Eaprimus IT Asset & Ticket System",
+  "short_name": "Eaprimus",
+  "description": "Enterprise IT Asset Management & Live Support Ticket System",
+  "start_url": "anasayfa",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

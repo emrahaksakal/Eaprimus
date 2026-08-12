@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" width="200" height="140">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0f4ff;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#e8f0fe;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="truck" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#4f46e5;stop-opacity:0.25"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="140" fill="url(#bg)" rx="12"/>
+  <!-- Truck body -->
+  <rect x="55" y="45" width="80" height="50" fill="#6366f1" opacity="0.18" rx="6"/>
+  <!-- Truck cabin -->
+  <rect x="115" y="55" width="30" height="40" fill="#6366f1" opacity="0.28" rx="4"/>
+  <!-- Windshield -->
+  <rect x="119" y="59" width="22" height="16" fill="#6366f1" opacity="0.5" rx="3"/>
+  <!-- Wheels -->
+  <circle cx="75" cy="98" r="9" fill="#4f46e5" opacity="0.35"/>
+  <circle cx="75" cy="98" r="5" fill="#fff" opacity="0.6"/>
+  <circle cx="125" cy="98" r="9" fill="#4f46e5" opacity="0.35"/>
+  <circle cx="125" cy="98" r="5" fill="#fff" opacity="0.6"/>
+  <!-- No image icon -->
+  <text x="100" y="128" font-family="Arial,sans-serif" font-size="10" fill="#a5b4fc" text-anchor="middle" opacity="0.8">Görsel Yok</text>
+</svg>

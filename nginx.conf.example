@@ -1,0 +1,117 @@
+# =========================================================================
+# EAPRIMUS NGINX SUBDIRECTORY CONFIGURATION FOR ALMALINUX / CENTOS / RHEL
+# Dosya Konumu: /etc/nginx/default.d/eaprimus.conf
+# =========================================================================
+
+# 1. Görseller, Logolar ve Medya Dosyaları (Static Assets & Uploads)
+location ~ ^/eaprimus/public/(.*\.(css|js|png|jpg|jpeg|gif|ico|woff|woff2|ttf|svg|eot|otf|webp|map))$ {
+    alias /var/www/html/eaprimus/public/$1;
+}
+
+location ~ ^/eaprimus/uploads/(.*)$ {
+    alias /var/www/html/eaprimus/public/uploads/$1;
+}
+
+location ~ ^/public/uploads/(.*)$ {
+    alias /var/www/html/eaprimus/public/uploads/$1;
+}
+
+location ~ ^/uploads/(.*)$ {
+    alias /var/www/html/eaprimus/public/uploads/$1;
+}
+
+location ~ ^/eaprimus/(favicon\.(ico|png)|icon-(192|512)\.png|manifest\.(json|php))$ {
+    alias /var/www/html/eaprimus/public/$1;
+}
+
+location = /favicon.ico {
+    alias /var/www/html/eaprimus/public/favicon.png;
+}
+
+# 2. Öncelikli ve Kimlik Doğrulama Yönlendirmeleri
+rewrite ^/eaprimus/(yetkilendirme|authorization)/?$ /eaprimus/dashboard.php?route=yetkilendirme last;
+rewrite ^/eaprimus/(erisim-engellendi|access-denied|403)/?$ /eaprimus/dashboard.php?route=403 last;
+rewrite ^/eaprimus/(giris|login)/?$ /eaprimus/login.php last;
+rewrite ^/eaprimus/(sifre-sifirla|reset-password)/?$ /eaprimus/reset-password.php last;
+rewrite ^/eaprimus/(aktivasyon|activation)/?$ /eaprimus/activate.php last;
+rewrite ^/eaprimus/(cikis|logout)/?$ /eaprimus/logout.php last;
+rewrite ^/eaprimus/(anasayfa|dashboard|home)/?$ /eaprimus/dashboard.php last;
+rewrite ^/eaprimus/(kayit|register)/?$ /eaprimus/kayit.php last;
+rewrite ^/eaprimus/cron/?$ /eaprimus/cron.php last;
+rewrite ^/eaprimus/install/?$ /eaprimus/install/index.php last;
+rewrite ^/eaprimus/install/step-([0-9]+)$ /eaprimus/install/index.php?step=$1 last;
+rewrite ^/eaprimus/install/(giris|login)/?$ /eaprimus/login.php last;
+
+# 3. REST API & AJAX Endpoints Rewrites
+rewrite ^/eaprimus/api/v1/live_stream\.php$ /eaprimus/api/v1/live_stream.php last;
+rewrite ^/eaprimus/api/v1/(.*)$ /eaprimus/api/v1/index.php?request=$1 last;
+rewrite ^/eaprimus/ajax/network-scan/?$ /eaprimus/ajax/network-scan.php last;
+rewrite ^/eaprimus/ajax/generate-ai-reply/?$ /eaprimus/ajax/generate-ai-reply.php last;
+rewrite ^/eaprimus/ajax/heartbeat/?$ /eaprimus/ajax/heartbeat.php last;
+rewrite ^/eaprimus/ajax/save-team-members/?$ /eaprimus/ajax/save_team_members.php last;
+rewrite ^/eaprimus/ajax/get-team-members/?$ /eaprimus/ajax/get_team_members.php last;
+rewrite ^/eaprimus/ajax/get-team-assignees/?$ /eaprimus/ajax/get_team_assignees.php last;
+rewrite ^/eaprimus/ajax/get-dynamic-fields/?$ /eaprimus/ajax/get_dynamic_fields.php last;
+rewrite ^/eaprimus/ajax/test-echo/?$ /eaprimus/ajax/test_echo.php last;
+rewrite ^/eaprimus/ajax/kb_search\.php$ /eaprimus/ajax/kb_search.php last;
+rewrite ^/eaprimus/ajax/kb-search/?$ /eaprimus/ajax/kb_search.php last;
+rewrite ^/eaprimus/ajax/download_agent\.php$ /eaprimus/public/ajax/download_agent.php last;
+rewrite ^/eaprimus/ajax/download_agent_linux\.php$ /eaprimus/public/ajax/download_agent_linux.php last;
+
+# 4. Tüm Dashboard, Kullanıcı, Varlık, Bilet, Müşteri ve Sistem Modülleri
+rewrite ^/eaprimus/(kullanici-listele|user-list)/deleted/?$ /eaprimus/dashboard.php?route=kullanici_listele&view_deleted=1 last;
+rewrite ^/eaprimus/(kullanici-listele|user-list)/?$ /eaprimus/dashboard.php?route=kullanici_listele last;
+rewrite ^/eaprimus/(kullanici-ekle|add-user)/?$ /eaprimus/dashboard.php?route=kullanici_ekle last;
+rewrite ^/eaprimus/(toplu-ice-aktar|bulk-import)/?$ /eaprimus/dashboard.php?route=toplu_ice_aktar last;
+rewrite ^/eaprimus/(kullanici-duzenle|edit-user)/([0-9]+)/?$ /eaprimus/dashboard.php?route=kullanici_duzenle&id=$2 last;
+rewrite ^/eaprimus/(davet-bekleyenler|pending-invites)/?$ /eaprimus/dashboard.php?route=davet_bekleyenler last;
+rewrite ^/eaprimus/(profilim|profile)/?$ /eaprimus/dashboard.php?route=profil_duzenle last;
+rewrite ^/eaprimus/(kullanici-detay|user-detail)/([0-9]+)/?$ /eaprimus/dashboard.php?route=kullanici_detay&id=$2 last;
+rewrite ^/eaprimus/(sistem-ayarlari|system-settings)/?$ /eaprimus/dashboard.php?route=sistem-ayarlari last;
+rewrite ^/eaprimus/(duyurular|announcements)/?$ /eaprimus/dashboard.php?route=duyurular last;
+rewrite ^/eaprimus/(sistem-loglari|system-logs)/?$ /eaprimus/dashboard.php?route=sistem-loglari last;
+rewrite ^/eaprimus/(takimlar|teams)/?$ /eaprimus/dashboard.php?route=takimlar last;
+rewrite ^/eaprimus/(kuyruklar|queues)/?$ /eaprimus/dashboard.php?route=kuyruklar last;
+rewrite ^/eaprimus/(varliklar|assets)/([^/]+)/deleted/?$ /eaprimus/dashboard.php?route=varliklar&view=$2&view_deleted=1 last;
+rewrite ^/eaprimus/(varliklar|assets)/deleted/?$ /eaprimus/dashboard.php?route=varliklar&view=assets&view_deleted=1 last;
+rewrite ^/eaprimus/(varliklar|assets)/([^/]+)/?$ /eaprimus/dashboard.php?route=varliklar&view=$2 last;
+rewrite ^/eaprimus/(varliklar|assets)/?$ /eaprimus/dashboard.php?route=varliklar last;
+rewrite ^/eaprimus/(varlik-detay|asset-detail)/([0-9]+)/?$ /eaprimus/dashboard.php?route=varlik_detay&id=$2 last;
+rewrite ^/eaprimus/(tedarikci-detay|supplier-detail)/([0-9]+)/?$ /eaprimus/dashboard.php?route=tedarikci_detay&id=$2 last;
+rewrite ^/eaprimus/cihaz/izle/([^/]*)/?$ /eaprimus/dashboard.php?route=varlik_detay&id=$1&view=assets last;
+rewrite ^/eaprimus/(raporlar|reports)/?$ /eaprimus/dashboard.php?route=raporlar last;
+rewrite ^/eaprimus/(amortisman)/?$ /eaprimus/dashboard.php?route=amortisman last;
+rewrite ^/eaprimus/(sayim|envanter-sayim)/?$ /eaprimus/dashboard.php?route=sayim last;
+rewrite ^/eaprimus/(yetki-yonetimi|roles)/?$ /eaprimus/dashboard.php?route=yetki-yonetimi last;
+rewrite ^/eaprimus/(sla-dashboard)/?$ /eaprimus/dashboard.php?route=sla-dashboard last;
+rewrite ^/eaprimus/(network-discovery)/?$ /eaprimus/dashboard.php?route=network-discovery last;
+rewrite ^/eaprimus/(biletler|tickets)/?$ /eaprimus/dashboard.php?route=biletler last;
+rewrite ^/eaprimus/(ticket-olustur|create-ticket|bilet-ekle|add-ticket)/?$ /eaprimus/dashboard.php?route=ticket-olustur last;
+rewrite ^/eaprimus/(bilet-detay|ticket-detail)/([0-9]+)/?$ /eaprimus/dashboard.php?route=bilet-detay&ticket_id=$2 last;
+rewrite ^/eaprimus/(musteriler|customers)/?$ /eaprimus/dashboard.php?route=musteriler last;
+rewrite ^/eaprimus/(organizasyonlar|organizations)/?$ /eaprimus/dashboard.php?route=organizasyonlar last;
+rewrite ^/eaprimus/(musteri-detay|customer-detail)/([0-9]+)/?$ /eaprimus/dashboard.php?route=musteri_detay&id=$2 last;
+rewrite ^/eaprimus/(musteri-ekle|add-customer)/?$ /eaprimus/dashboard.php?route=musteri_ekle last;
+rewrite ^/eaprimus/(musteri-duzenle|edit-customer)/([0-9]+)/?$ /eaprimus/dashboard.php?route=musteri_duzenle&id=$2 last;
+rewrite ^/eaprimus/(musteri-fields|customer-fields)/?$ /eaprimus/dashboard.php?route=musteri_fields last;
+rewrite ^/eaprimus/(export_users_pdf)/?$ /eaprimus/dashboard.php?route=export_users_pdf last;
+rewrite ^/eaprimus/(export_activity)/?$ /eaprimus/dashboard.php?route=export_activity last;
+
+# 5. Eaprimus Ana Location Bloğu
+location /eaprimus {
+    alias /var/www/html/eaprimus/public;
+    index index.php;
+    try_files $uri $uri/ /eaprimus/index.php?$query_string;
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php-fpm/www.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $request_filename;
+    }
+}
+
+# 6. Kısayol ve Güvenlik Ağ Yönlendiricisi
+location ~ ^/(anasayfa|giris|cikis|kayit|install|varliklar|assets|profilim|profile|yetki-yonetimi|roles|biletler|tickets|musteriler|customers|raporlar|reports|amortisman|sayim|network-discovery|sla-dashboard|kullanici-listele|user-list|sistem-ayarlari|duyurular|sistem-loglari|takimlar|kuyruklar|sifre-sifirla|reset-password|aktivasyon|activation|yetkilendirme|authorization)(/.*)?$ {
+    return 301 /eaprimus$request_uri;
+}

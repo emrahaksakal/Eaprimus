@@ -1,0 +1,93 @@
+/* GENEL KOYU MOD AYARLARI */
+body.dark-mode {
+    background-color: #454d55 !important;
+    color: #ffffff !important;
+}
+
+/* KARTLAR VE KUTULAR */
+body.dark-mode .card {
+    background-color: #343a40 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .card-header {
+    background-color: #3f474e !important;
+    border-bottom: 1px solid #56606a;
+    color: #ffffff !important;
+}
+
+body.dark-mode .card-body {
+    background-color: #343a40 !important;
+}
+
+body.dark-mode .card-footer {
+    background-color: #3f474e !important;
+    border-top: 1px solid #56606a;
+}
+
+/* TABLOLAR */
+body.dark-mode .table {
+    color: #ffffff !important;
+    background-color: #343a40 !important;
+}
+
+body.dark-mode .table-hover tbody tr:hover {
+    color: #ffffff !important;
+    background-color: #3f474e !important;
+}
+
+body.dark-mode .table thead th {
+    border-bottom: 2px solid #56606a;
+    background-color: #3f474e !important;
+    color: #fff !important;
+}
+
+body.dark-mode .table td,
+body.dark-mode .table th {
+    border-top: 1px solid #56606a;
+}
+
+/* MAIN.PHP İÇİNDEKİ ÖZEL ALANLAR */
+
+/* Accordion Başlıkları */
+body.dark-mode .accordion-header {
+    background-color: #3f474e !important;
+}
+body.dark-mode .accordion-header h5 {
+    color: #ffffff !important;
+}
+
+/* Text-muted ve Text-dark düzeltmeleri */
+body.dark-mode .text-dark {
+    color: #ffffff !important;
+}
+
+body.dark-mode .text-muted {
+    color: #adb5bd !important;
+}
+
+/* Small Box Düzeltmeleri */
+body.dark-mode .small-box .inner h3,
+body.dark-mode .small-box .inner p {
+    color: #ffffff !important;
+}
+
+/* Modal (Popup) */
+body.dark-mode .modal-content {
+    background-color: #343a40;
+    color: #fff;
+}
+body.dark-mode .modal-header {
+    border-bottom: 1px solid #56606a;
+}
+body.dark-mode .close {
+    color: #fff;
+    text-shadow: none;
+}
+
+/* Form Elemanları (Varsa) */
+body.dark-mode .form-control {
+    background-color: #3f474e;
+    border-color: #6c757d;
+    color: #fff;
+}

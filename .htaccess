@@ -1,0 +1,138 @@
+RewriteEngine On
+RewriteRule ^manifest\.json$ public/manifest.php [L,QSA]
+RewriteRule ^manifest\.php$ public/manifest.php [L,QSA]
+RewriteRule ^sw\.js$ sw.js [L,QSA]
+RewriteRule ^icon-(192|512)\.png$ icon-$1.png [L,QSA]
+
+
+
+# PHP Upload Size Limits
+<IfModule mod_php.c>
+    php_value upload_max_filesize 128M
+    php_value post_max_size 128M
+    php_value max_execution_time 300
+    php_value memory_limit 256M
+</IfModule>
+<IfModule mod_php8.c>
+    php_value upload_max_filesize 128M
+    php_value post_max_size 128M
+    php_value max_execution_time 300
+    php_value memory_limit 256M
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Top Priority Routes
+RewriteRule ^(yetkilendirme|authorization)/?$ public/dashboard.php?route=yetkilendirme [L,QSA]
+RewriteRule ^(erisim-engellendi|access-denied|403)/?$ public/dashboard.php?route=403 [L,QSA]
+
+# Block sensitive files and directories
+RewriteRule ^app/.*$ - [F,L]
+RewriteRule ^database/.*$ - [F,L]
+RewriteRule ^cron/.*$ - [F,L]
+RewriteRule ^libs/.*$ - [F,L]
+RewriteRule ^\.env$ - [F,L]
+RewriteRule ^composer\.(json|lock)$ - [F,L]
+
+# 1. Root & Installation Routes -> public/
+RewriteRule ^$ public/index.php [L,QSA]
+RewriteRule ^index\.php$ public/index.php [L,QSA]
+RewriteRule ^install/?$ public/install/index.php [L,QSA]
+RewriteRule ^install/step-([0-9]+)$ public/install/index.php?step=$1 [L,QSA]
+RewriteRule ^install/(giris|login)/?$ public/login.php [L,QSA]
+
+# PWA Routes
+RewriteRule ^public/manifest\.json$ public/manifest.php [L,QSA]
+RewriteRule ^(sw\.js|public/sw\.js)$ public/sw.js [L,QSA]
+
+# 2. Specific Pages (Turkish & English Aliases)
+RewriteRule ^(giris|login)/?$ public/login.php [L,QSA]
+RewriteRule ^(sifre-sifirla|reset-password)/?$ public/reset-password.php [L,QSA]
+RewriteRule ^(aktivasyon|activation)/?$ public/activate.php [L,QSA]
+RewriteRule ^(cikis|logout)/?$ public/logout.php [L,QSA]
+RewriteRule ^(anasayfa|dashboard|home)/?$ public/dashboard.php [L,QSA]
+RewriteRule ^(kayit|register)/?$ public/kayit.php [L,QSA]
+RewriteRule ^cron/?$ public/cron.php [L,QSA]
+
+# RESTful API Route
+RewriteRule ^api/v1/live_stream\.php$ public/api/v1/live_stream.php [L,QSA]
+RewriteRule ^api/v1/(.*)$ public/api/v1/index.php?request=$1 [L,QSA]
+
+# AJAX Endpoints
+RewriteRule ^ajax/network-scan/?$ public/ajax/network-scan.php [L,QSA]
+RewriteRule ^ajax/generate-ai-reply/?$ public/ajax/generate-ai-reply.php [L,QSA]
+RewriteRule ^ajax/heartbeat/?$ public/ajax/heartbeat.php [L,QSA]
+RewriteRule ^ajax/save-team-members/?$ public/ajax/save_team_members.php [L,QSA]
+RewriteRule ^ajax/get-team-members/?$ public/ajax/get_team_members.php [L,QSA]
+RewriteRule ^ajax/get-team-assignees/?$ public/ajax/get_team_assignees.php [L,QSA]
+RewriteRule ^ajax/get-dynamic-fields/?$ public/ajax/get_dynamic_fields.php [L,QSA]
+RewriteRule ^ajax/test-echo/?$ public/ajax/test_echo.php [L,QSA]
+RewriteRule ^ajax/kb_search\.php$ public/ajax/kb_search.php [L,QSA]
+RewriteRule ^ajax/kb-search/?$ public/ajax/kb_search.php [L,QSA]
+RewriteRule ^ajax/download_agent\.php$ public/ajax/download_agent.php [L,QSA]
+RewriteRule ^ajax/download_agent_linux\.php$ public/ajax/download_agent_linux.php [L,QSA]
+RewriteRule ^ajax/update_ticket_status\.php$ public/ajax/update_ticket_status.php [L,QSA]
+RewriteRule ^ajax/ticket_lock\.php$ public/ajax/ticket_lock.php [L,QSA]
+RewriteRule ^ajax/get_ticket_info\.php$ public/ajax/get_ticket_info.php [L,QSA]
+RewriteRule ^ajax/ajax_subtasks\.php$ public/ajax/ajax_subtasks.php [L,QSA]
+RewriteRule ^ajax/ajax_timelogs\.php$ public/ajax/ajax_timelogs.php [L,QSA]
+RewriteRule ^ajax/update_agent_owner\.php$ public/ajax/update_agent_owner.php [L,QSA]
+
+
+# 3. Dashboard Params (Turkish & English Aliases)
+RewriteRule ^(kullanici-listele|user-list)/deleted/?$ public/dashboard.php?route=kullanici_listele&view_deleted=1 [L,QSA]
+RewriteRule ^(kullanici-listele|user-list)/?$ public/dashboard.php?route=kullanici_listele [L,QSA]
+RewriteRule ^(kullanici-ekle|add-user)/?$ public/dashboard.php?route=kullanici_ekle [L,QSA]
+RewriteRule ^(toplu-ice-aktar|bulk-import)/?$ public/dashboard.php?route=toplu_ice_aktar [L,QSA]
+RewriteRule ^(kullanici-duzenle|edit-user)/([0-9]+)/?$ public/dashboard.php?route=kullanici_duzenle&id=$2 [L,QSA]
+RewriteRule ^(davet-bekleyenler|pending-invites)/?$ public/dashboard.php?route=davet_bekleyenler [L,QSA]
+RewriteRule ^(profilim|profile)/?$ public/dashboard.php?route=profil_duzenle [L,QSA]
+RewriteRule ^(kullanici-detay|user-detail)/([0-9]+)/?$ public/dashboard.php?route=kullanici_detay&id=$2 [L,QSA]
+RewriteRule ^(sistem-ayarlari|system-settings)/?$ public/dashboard.php?route=sistem-ayarlari [L,QSA]
+RewriteRule ^(duyurular|announcements)/?$ public/dashboard.php?route=duyurular [L,QSA]
+RewriteRule ^(sistem-loglari|system-logs)/?$ public/dashboard.php?route=sistem-loglari [L,QSA]
+RewriteRule ^(takimlar|teams)/?$ public/dashboard.php?route=takimlar [L,QSA]
+RewriteRule ^(kuyruklar|queues)/?$ public/dashboard.php?route=kuyruklar [L,QSA]
+RewriteRule ^(varliklar|assets)/([^/]+)/deleted/?$ public/dashboard.php?route=varliklar&view=$2&view_deleted=1 [L,QSA]
+RewriteRule ^(varliklar|assets)/deleted/?$ public/dashboard.php?route=varliklar&view=assets&view_deleted=1 [L,QSA]
+RewriteRule ^(varliklar|assets)/([^/]+)/?$ public/dashboard.php?route=varliklar&view=$2 [L,QSA]
+RewriteRule ^(varliklar|assets)/?$ public/dashboard.php?route=varliklar [L,QSA]
+RewriteRule ^(varlik-detay|asset-detail)/([0-9]+)/?$ public/dashboard.php?route=varlik_detay&id=$2 [L,QSA]
+RewriteRule ^(tedarikci-detay|supplier-detail)/([0-9]+)/?$ public/dashboard.php?route=tedarikci_detay&id=$2 [L,QSA]
+RewriteRule ^cihaz/izle/([^/]*)/?$ public/dashboard.php?route=varlik_detay&id=$1&view=assets [L,QSA]
+RewriteRule ^(raporlar|reports)/?$ public/dashboard.php?route=raporlar [L,QSA]
+RewriteRule ^(amortisman)/?$ public/dashboard.php?route=amortisman [L,QSA]
+RewriteRule ^(sayim|envanter-sayim)/?$ public/dashboard.php?route=sayim [L,QSA]
+RewriteRule ^(yetki-yonetimi|roles)/?$ public/dashboard.php?route=yetki-yonetimi [L,QSA]
+RewriteRule ^(sla-dashboard)/?$ public/dashboard.php?route=sla-dashboard [L,QSA]
+RewriteRule ^(network-discovery)/?$ public/dashboard.php?route=network-discovery [L,QSA]
+RewriteRule ^(biletler|tickets)/?$ public/dashboard.php?route=biletler [L,QSA]
+RewriteRule ^(ticket-olustur|create-ticket|bilet-ekle|add-ticket)/?$ public/dashboard.php?route=ticket-olustur [L,QSA]
+RewriteRule ^(bilet-detay|ticket-detail)/([0-9]+)/?$ public/dashboard.php?route=bilet-detay&ticket_id=$2 [L,QSA]
+RewriteRule ^(musteriler|customers)/?$ public/dashboard.php?route=musteriler [L,QSA]
+RewriteRule ^(organizasyonlar|organizations)/?$ public/dashboard.php?route=organizasyonlar [L,QSA]
+RewriteRule ^(musteri-detay|customer-detail)/([0-9]+)/?$ public/dashboard.php?route=musteri_detay&id=$2 [L,QSA]
+RewriteRule ^(musteri-ekle|add-customer)/?$ public/dashboard.php?route=musteri_ekle [L,QSA]
+RewriteRule ^(musteri-duzenle|edit-customer)/([0-9]+)/?$ public/dashboard.php?route=musteri_duzenle&id=$2 [L,QSA]
+RewriteRule ^(musteri-fields|customer-fields)/?$ public/dashboard.php?route=musteri_fields [L,QSA]
+RewriteRule ^(export_users_pdf)/?$ public/dashboard.php?route=export_users_pdf [L,QSA]
+RewriteRule ^(export_users_excel)/?$ public/dashboard.php?route=export_users_excel [L,QSA]
+RewriteRule ^(export_activity)/?$ public/dashboard.php?route=export_activity [L,QSA]
+
+# 4. General fallback to public/ for assets or other files
+RewriteCond %{REQUEST_URI} !/public/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/$1 [L]
+
+# Security (Block dot files)
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

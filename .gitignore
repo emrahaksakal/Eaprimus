@@ -1,0 +1,38 @@
+# Environment configuration
+app/config/.env
+.env
+
+# Installation locks
+app/config/installed.lock
+
+# User sessions
+app/sessions/*
+!app/sessions/.gitkeep
+
+# System logs
+app/logs/*
+!app/logs/.gitkeep
+
+# User uploads & attachments
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Signatures & attachments storage
+app/storage/attachments/*
+!app/storage/attachments/.gitkeep
+app/storage/signatures/*
+!app/storage/signatures/.gitkeep
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE & Editor files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp

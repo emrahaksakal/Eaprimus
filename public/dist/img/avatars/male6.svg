@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="98" fill="#e0f2fe"/>
+        <!-- Head -->
+        <circle cx="100" cy="108" r="48" fill="#ffedd5"/>
+        <!-- Ears -->
+        <circle cx="50" cy="110" r="10" fill="#ffedd5"/>
+        <circle cx="150" cy="110" r="10" fill="#ffedd5"/>
+        <!-- Cap -->
+        <path d="M 48 95 C 48 55, 152 55, 152 95 Z" fill="#2563eb"/>
+        <path d="M 40 95 C 40 90, 160 90, 160 95 L 160 100 L 40 100 Z" fill="#1d4ed8"/>
+        <circle cx="100" cy="56" r="6" fill="#1d4ed8"/>
+        <!-- Eyes -->
+        <circle cx="80" cy="105" r="5" fill="#0f172a"/>
+        <circle cx="120" cy="105" r="5" fill="#0f172a"/>
+        <!-- Cool smirk -->
+        <path d="M 90 128 Q 110 134 118 122" stroke="#0f172a" stroke-width="4" stroke-linecap="round" fill="none"/>
+    </svg>

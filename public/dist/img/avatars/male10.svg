@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="98" fill="#f3e8ff"/>
+        <!-- Head -->
+        <circle cx="100" cy="108" r="46" fill="#fed7aa"/>
+        <!-- Beanie -->
+        <path d="M 50 95 C 50 45, 150 45, 150 95 Z" fill="#7e22ce"/>
+        <rect x="44" y="86" width="112" height="16" rx="6" fill="#6b21a8"/>
+        <!-- Eyes -->
+        <circle cx="80" cy="108" r="5" fill="#1e293b"/>
+        <circle cx="120" cy="108" r="5" fill="#1e293b"/>
+        <!-- Smile -->
+        <path d="M 88 126 Q 100 134 112 126" stroke="#1e293b" stroke-width="4" stroke-linecap="round" fill="none"/>
+    </svg>
